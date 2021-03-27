@@ -1,0 +1,2 @@
+# core
+Dynamic database manager
