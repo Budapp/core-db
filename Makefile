@@ -25,3 +25,7 @@ version: dist
 
 license: dist
 	python3 setup.py --license
+
+run:
+	clear
+	python src/main.py
