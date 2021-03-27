@@ -14,6 +14,8 @@ class DatabaseCore(object):
         self.password = password
         self.host = host
         self.database_name = database_name
+        
+        self.engine = self.get_engine_instance()
 
     def _get_database_config(self):
         return {'drivername': self.driver_name,
@@ -36,3 +38,17 @@ class DatabaseCore(object):
         database_url = self._get_database_url()
 
         return create_engine(database_url)
+
+    def create_table(self, name):
+        metadata = MetaData()
+        metadata.reflect(bind=self.get_engine_instance())
+
+        tables = metadata.tables.keys()
+
+        if name not in tables:
+            table = Table(name, metadata,
+                          Column('id', Integer, primary_key=True),
+                          Column('key', String),
+                          Column('val', Integer))
+
+            table.create(self.get_engine_instance())

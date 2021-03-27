@@ -16,10 +16,11 @@ def get_or_create_database(username, password, host, database_name):
 
     if not engine_instance.exist_database():
         # Create db
-        engine_instance.create_database(engine_instance.url)
+        engine_instance.create_database()
 
     return engine_instance
 
 # Example
 engine = get_or_create_database(USERNAME, PASSWORD, HOST, DATABASE)
 
+engine.create_table('users')
